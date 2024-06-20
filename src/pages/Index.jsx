@@ -27,7 +27,7 @@ const Index = () => {
                 <Text>{job.description}</Text>
               </CardBody>
               <CardFooter>
-                <Button colorScheme="teal">Apply Now</Button>
+                <Button as={Link} to="/apply" state={{ job }} colorScheme="teal">Apply Now</Button> {/* Update the Apply Now button */}
               </CardFooter>
             </Card>
           ))}
