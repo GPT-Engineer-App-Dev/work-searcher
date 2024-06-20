@@ -1,37 +1,23 @@
 import { Container, Text, VStack, Box, Heading, SimpleGrid, Card, CardHeader, CardBody, CardFooter, Button } from "@chakra-ui/react";
-
-const jobListings = [
-  {
-    id: 1,
-    title: "Software Engineer",
-    company: "Tech Corp",
-    location: "San Francisco, CA",
-    description: "We are looking for a skilled software engineer to join our team.",
-  },
-  {
-    id: 2,
-    title: "Product Manager",
-    company: "Innovate Ltd",
-    location: "New York, NY",
-    description: "Seeking an experienced product manager to lead our product team.",
-  },
-  {
-    id: 3,
-    title: "UX Designer",
-    company: "Design Studio",
-    location: "Remote",
-    description: "A creative UX designer needed for our remote team.",
-  },
-];
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { useEffect, useState } from "react";
 
 const Index = () => {
+  const [jobListings, setJobListings] = useState([]);
+
+  useEffect(() => {
+    const storedJobListings = JSON.parse(localStorage.getItem("jobListings")) || [];
+    setJobListings(storedJobListings);
+  }, []);
+
   return (
     <Container maxW="container.xl" py={10}>
       <VStack spacing={8}>
         <Heading as="h1" size="2xl">Job Listings</Heading>
+        <Button as={Link} to="/post-job" colorScheme="teal" size="lg">Post a Job</Button> {/* Add the Post a Job button */}
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
-          {jobListings.map((job) => (
-            <Card key={job.id} borderWidth="1px" borderRadius="lg" overflow="hidden">
+          {jobListings.map((job, index) => (
+            <Card key={index} borderWidth="1px" borderRadius="lg" overflow="hidden">
               <CardHeader>
                 <Heading size="md">{job.title}</Heading>
                 <Text>{job.company}</Text>
